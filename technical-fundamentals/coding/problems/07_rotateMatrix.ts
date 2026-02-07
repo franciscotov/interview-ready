@@ -6,5 +6,13 @@
 type Matrix = number[][]
 
 export default function rotateMatrix (matrix: Matrix) {
-
+    for (let j = 0; j < matrix.length; j++) {
+        for (let i = j+1; i < matrix.length; i++) {
+            // we need to swap the items
+            const item = matrix[j][i];
+            matrix[j][i] = matrix[i][j];
+            matrix[i][j] = item;
+        }
+    }
+    matrix.map(row => row.reverse());
 }

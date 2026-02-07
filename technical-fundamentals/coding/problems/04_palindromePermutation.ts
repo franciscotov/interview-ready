@@ -10,5 +10,10 @@
 // ```
 
 export default function palindromePermutation (str: string): boolean {
-
+    let map = new Map();
+    str = str.toLocaleLowerCase().replaceAll(" ", '');
+    for(let char of str) {
+        map.set(char, (map.get(char) || 0) + 1);
+    }
+    return Array.from(map.values()).filter((val) => val % 2 === 1).length <= 1;
 }
