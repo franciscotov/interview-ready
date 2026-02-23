@@ -20,4 +20,18 @@ export type Node<T> = {
 export default function deleteMiddleNode<T>(
   head: Node<T>,
   position: number,
-): Node<T> | undefined {}
+): Node<T> | undefined {
+  let c = head;
+  let counter = 1;
+  while(c){
+    let n = c.next;
+    if(!n) break;
+    if(counter === position) {
+      c.next = n.next;
+    } else {
+      c = n;
+    }
+    counter++;
+  }
+  return head;
+}
