@@ -19,4 +19,33 @@ export type Node<T> = {
 export default function sumLists(
   list1: Node<number> | undefined,
   list2: Node<number> | undefined,
-): Node<number> | undefined {}
+): Node<number> | undefined {
+  let res = 0;
+  let a = list1;
+  let b = list2;
+  let lastNode = null
+  while (a || b) {
+    let na = a?.next;
+    let nb = b?.next;
+    let val = 0;
+    if(a && b) {
+      val = a?.value + b?.value + res;
+    } else if(a) {
+      lastNode = a;
+      val  = a.value + res;
+    } else if(b){
+      val  = b.value + res;
+    }
+    if(val > 9){
+      val %= 10;
+      res = 1;
+    }
+    a!.value = val;
+    a = na;
+    b = nb;
+  }
+  if(res && lastNode) {
+    lastNode.next = {value: res, next: undefined}
+  }
+  return list1;
+}
