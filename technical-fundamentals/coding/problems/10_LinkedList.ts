@@ -45,9 +45,38 @@ export class LinkedList<T> {
       p = p.next;
     }
   }
-  remove() {}
-  merge() {}
-  print() {}
+  remove(cb: (node: Node<T>, i: number) => boolean): LinkedList<T>{
+    let p = this.head;
+    let i =0;
+    let list = new LinkedList<T>();
+    while(p) {
+      if(cb(p, i)) {
+        list.push(p.value);
+      }
+      i++;
+      p = p.next;
+    }
+    return list;
+  }
+  merge(a: LinkedList<T>): LinkedList<T> {
+    let p = this.tail
+    if(!p) {
+      this.head = a.head;
+      this.tail = a.tail;
+    } else {
+      p.next = a.head;
+    }
+    return this;
+  }
+  print() {
+    let s = '';
+    this.visit((node, i) => {
+      s += node.value
+      if(node.next) {
+        s += '->'
+      }
+    })
+  }
 
   // extra
 

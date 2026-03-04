@@ -21,17 +21,31 @@ export default function deleteMiddleNode<T>(
   head: Node<T>,
   position: number,
 ): Node<T> | undefined {
-  let c = head;
-  let counter = 1;
-  while(c){
-    let n = c.next;
-    if(!n) break;
-    if(counter === position) {
-      c.next = n.next;
-    } else {
-      c = n;
+  let list = new LinkedList(head);
+  let n = list.remove((_node, index) => {
+    if(index === position && position > 0) {
+      return false;
     }
-    counter++;
-  }
-  return head;
+    return true;
+  })
+  return n.head;
 }
+
+// export default function deleteMiddleNode<T>(
+//   head: Node<T>,
+//   position: number,
+// ): Node<T> | undefined {
+//   let c = head;
+//   let counter = 1;
+//   while(c){
+//     let n = c.next;
+//     if(!n) break;
+//     if(counter === position) {
+//       c.next = n.next;
+//     } else {
+//       c = n;
+//     }
+//     counter++;
+//   }
+//   return head;
+// }

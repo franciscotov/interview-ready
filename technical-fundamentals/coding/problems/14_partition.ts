@@ -23,31 +23,45 @@ export default function partition<T>(
   head: Node<T> | undefined,
   x: T,
 ): Node<T> | undefined {
-  let saved:Node<T> | undefined;
-  let savedC:Node<T> | undefined;
-  let c = head;
-  while(c) {
-    let n = c.next;
-    if(!n) {
-      break;
-    }
-    // we do the same as we want to remove all the nodes with values greater than x
-    if(n.value >= x) {
-      c.next = n.next;
-      // we save the elements we 'removed'
-      if(!saved) {
-        saved = n;
-        savedC = saved;
-      } else if(savedC?.next) {
-        savedC.next = n;
-        savedC = savedC.next
-      }
-    } else {
-      c = n;
-    }
-  }
-  if(c && saved) {
-    c.next = saved
-  }
-  return head;
+  let list = new LinkedList(head);
+  // filter by greater than
+  let right = list.filter((node) => node.value >= x);
+  // filtering by less than 
+  let left = list.filter((node) => node.value < x);
+  // merging both lists
+  let merged = left.merge(right);
+  return merged.head;
 }
+
+// export default function partition<T>(
+//   head: Node<T> | undefined,
+//   x: T,
+// ): Node<T> | undefined {
+//   let saved:Node<T> | undefined;
+//   let savedC:Node<T> | undefined;
+//   let c = head;
+//   while(c) {
+//     let n = c.next;
+//     if(!n) {
+//       break;
+//     }
+//     // we do the same as we want to remove all the nodes with values greater than x
+//     if(n.value >= x) {
+//       c.next = n.next;
+//       // we save the elements we 'removed'
+//       if(!saved) {
+//         saved = n;
+//         savedC = saved;
+//       } else if(savedC?.next) {
+//         savedC.next = n;
+//         savedC = savedC.next
+//       }
+//     } else {
+//       c = n;
+//     }
+//   }
+//   if(c && saved) {
+//     c.next = saved
+//   }
+//   return head;
+// }

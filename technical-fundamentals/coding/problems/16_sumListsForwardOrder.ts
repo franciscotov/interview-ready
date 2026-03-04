@@ -16,4 +16,6 @@ export type Node<T> = {
 export default function sumListsForwardOrder(
   list1: Node<number> | undefined,
   list2: Node<number> | undefined,
-): Node<number> | undefined {}
+): Node<number> | undefined {
+  
+}
