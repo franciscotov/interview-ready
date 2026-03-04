@@ -13,28 +13,31 @@ export type Node<T> = {
 };
 
 export default function removeDups<T>(head?: Node<T>): Node<T> | undefined {
-  // with t buffer
-  let myList = new LinkedList<T>();
-  myList.tail = head;
-  while(myList.tail) {
-    let next = myList.tail.next;
-    if(!next) break;
-    if(myList.tail?.value === next.value) {
-      myList.tail.next = next.next;
-    } else {
-      myList.tail = myList.tail?.next;
-    }
-  }
+  let link = new LinkedList(head);
+  // if(!head) return;
+  let set = new Set<T>();
 
-  // without t buffer 
-  // while (head) {
-  //   let next = head.next;
-  //   if(!next) break;
-  //   if(head.value === next.value) {
-  //     head.next = next.next;
-  //   } else {
-  //     head = head.next
-  //   }
-  // }
-  return head;
+  let newlist = link.filter((node) => {
+    if(set.has(node.value)) {
+      return false;
+    }
+    set.add(node.value)
+    return true;
+  })
+  return newlist.head;
 }
+
+// export default function removeDups<T>(head?: Node<T>): Node<T> | undefined {
+//   let myList = new LinkedList<T>();
+//   myList.tail = head;
+//   while(myList.tail) {
+//     let next = myList.tail.next;
+//     if(!next) break;
+//     if(myList.tail?.value === next.value) {
+//       myList.tail.next = next.next;
+//     } else {
+//       myList.tail = myList.tail?.next;
+//     }
+//   }
+//   return head;
+// }
