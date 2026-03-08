@@ -76,13 +76,16 @@ export class LinkedList<T> {
         s += '->'
       }
     })
+    console.log(s)
   }
 
   // extra
 
   //find(): Node<T> {}
   //get(index: number): Node<T> {}
-  //iterator(): LinkedListIterator {}
+  iterator(): LinkedList {
+
+  }
   length(): number {
     let length = 0;
     this.visit(() =>{ length++})
