@@ -83,8 +83,9 @@ export class LinkedList<T> {
 
   //find(): Node<T> {}
   //get(index: number): Node<T> {}
-  iterator(): LinkedList {
-
+  iterator(): LinkedList<T> {
+    let list = new LinkedList<T>(this.tail);
+    return list;
   }
   length(): number {
     let length = 0;
@@ -92,5 +93,3 @@ export class LinkedList<T> {
     return length;
   };
 }
-
-const list = new LinkedList();
