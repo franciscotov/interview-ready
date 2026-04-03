@@ -83,9 +83,17 @@ export class LinkedList<T> {
 
   //find(): Node<T> {}
   //get(index: number): Node<T> {}
-  iterator(): LinkedList<T> {
-    let list = new LinkedList<T>(this.tail);
-    return list;
+  iterator(cb: (node: Node<T>, index: number) => boolean | void) {
+    let p = this.head;
+    let i =0;
+    while(p) {
+      if(cb(p,i)){
+        break;
+      }
+      i++;
+      p = p.next;
+    }
+    return this;
   }
   length(): number {
     let length = 0;
