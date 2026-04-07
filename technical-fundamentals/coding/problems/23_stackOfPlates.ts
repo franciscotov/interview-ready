@@ -11,16 +11,46 @@
 // FOLLOW UP: Implement a function popAt(int index) which performs a pop operation on a specific sub-stack.
 
 export default class StackOfPlates<T> {
+    private stacks: Array<Array<T>>;
+    private maxCapacity: number;
     constructor(capacity: number) {
-
+        this.maxCapacity = capacity;
+        this.stacks = new Array(new Array());
     }
 
     push(value: T): void {
-
+        const lastStack = this.stacks[this.stacks.length -1];
+        if(lastStack.length === this.maxCapacity) {
+            const newStack = new Array();
+            newStack.push(value);
+            this.stacks.push(newStack);
+        } else {
+            lastStack.push(value);
+        }
+    }
+    
+    pop(): T | undefined {
+        const lastIndex = this.stacks.length -1;
+        const lastStack = this.stacks[lastIndex];
+        const item = lastStack.pop();
+        if(lastStack.length === 0 && lastIndex > 0) {
+            this.stacks.pop();
+        }
+        return item;
     }
 
-    pop(): T | undefined {
-
+    // FOLLOW UP
+    popAt(index: number): T | undefined {
+        // if we dont need to reorder the stacks
+        const stackByIndex = this.stacks[index];
+        if(!stackByIndex){
+            return;
+        } else {
+            let res = stackByIndex.pop();
+            if (stackByIndex.length === 0) {
+                this.stacks.filter(stack => stack === stackByIndex);
+            }
+            return res;
+        }
     }
 }
-
