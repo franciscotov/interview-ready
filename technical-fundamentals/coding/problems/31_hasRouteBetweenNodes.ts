@@ -11,4 +11,25 @@ export type GraphNode = {
 export default function hasRouteBetweenNodes(
   start: GraphNode,
   end: GraphNode,
-): boolean {}
+): boolean {
+  /*
+            Graph:
+            1 -> 2 -> 3 -> 4
+            |         |
+            5         6
+        */
+  const queue: GraphNode[] = start.neighbors;
+  let p;
+  let set = new Set<GraphNode>();
+  while(p = queue.shift()) {
+    if(set.has(p)) return false;
+    set.add(p);
+    if(p === end) {
+      return true;
+    }
+    if(p.neighbors.length > 0) {
+      queue.push(...p.neighbors);
+    }
+  }
+  return false;
+}

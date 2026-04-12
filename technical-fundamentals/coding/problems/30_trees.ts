@@ -7,7 +7,43 @@ export type TreeNode<T> = {
 };
 
 export class Tree<T> {
-  bfs(node: TreeNode<T> | undefined, visit: (node: TreeNode<T>) => void) {}
+  bfs(node: TreeNode<T> | undefined, visit: (node: TreeNode<T>) => void, visited?: boolean) {
+    if(!node) {
+      return;
+    }
+    if (!visited) visit(node);
+    if(node.left){
+      visit(node.left);
+    }
+    if (node.right){
+      visit(node.right);
+    }
+    this.bfs(node.left, visit, true)
+    this.bfs(node.right, visit, true);
+    return;
 
-  dfs(node: TreeNode<T> | undefined, visit: (node: TreeNode<T>) => void) {}
+    // 2nd solution
+    // let queue = [node];
+    // let p;
+    // while (p = queue.shift()){
+    //   visit(p);
+    //   if(p.left) {
+    //     queue.push(p.left);
+    //   }
+    //   if(p.right) {
+    //     queue.push(p.right);
+    //   }
+
+    // }
+  }
+
+  dfs(node: TreeNode<T> | undefined, visit: (node: TreeNode<T>) => void) {
+    if(!node) {
+      return;
+    }
+    visit(node);
+    this.dfs(node.left, visit)
+    this.dfs(node.right, visit);
+    return;
+  }
 }
